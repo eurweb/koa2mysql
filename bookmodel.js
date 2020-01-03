@@ -31,7 +31,9 @@ const crud = {
 		let st = 'SELECT * FROM ' +tableBooksName+' ORDER BY '+orderby+' '+sort+' LIMIT '+start+','+limit;
 		return query(st);
 	},
-    get:    (id) => {return query(`SELECT * FROM ${tableBooksName} WHERE id= ?`, [Number(id)])},
+    get:    (id) => {
+		let st = 'SELECT * FROM '+ tableBooksName + ' LEFT OUTER JOIN '+tableAuthorsName+' ON '+ tableBooksName + '.author_id = '+ tableAuthorsName + '.id WHERE ' + tableBooksName +'.id= ?';
+		return query(st, [Number(id)])},
     delete: (id) => {return query(`DELETE FROM ${tableBooksName} WHERE id= ?`, [Number(id)])},
     insert: (request) => {
 		//console.log(request);
